@@ -82,6 +82,9 @@ namespace MathQuiz
             timeLeft = 30;
             timeLabel.Text = "30 seconds";
             timer1.Start();
+
+            // Reset timer label
+            timeLabel.BackColor = SystemColors.Control;
         }
 
         /// <summary>
@@ -125,6 +128,12 @@ namespace MathQuiz
                 // Time Left label.
                 timeLeft = timeLeft - 1;
                 timeLabel.Text = timeLeft + " seconds";
+
+                // Change timer label to red when only five seconds
+                if (timeLeft <= 5)
+                {
+                    timeLabel.BackColor = Color.Red;
+                }
             }
             else
             {
@@ -138,6 +147,18 @@ namespace MathQuiz
                 product.Value = multiplicand * multiplier;
                 quotient.Value = dividend / divisor;
                 startButton.Enabled = true;
+            }
+        }
+
+        private void answer_Enter(object sender, EventArgs e)
+        {
+            // Select the whole answer in the NumericUpDown control.
+            NumericUpDown answerBox = sender as NumericUpDown;
+
+            if (answerBox != null)
+            {
+                int lengthOfAnswer = answerBox.Value.ToString().Length;
+                answerBox.Select(0, lengthOfAnswer);
             }
         }
     }
